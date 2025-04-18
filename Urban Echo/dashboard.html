@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard - Urban Echo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+
+        <div id="sidebar" class="w-64 bg-blue-800 text-white p-4 transform -translate-x-full md:translate-x-0 fixed md:relative inset-y-0 z-40 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-2xl font-bold">Urban Echo</h1>
+                <button id="close-sidebar" class="md:hidden text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+
+            <div class="flex items-center mb-6 p-2 bg-blue-700 rounded-lg">
+                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <p class="font-medium" id="username-display">Antarik</p>
+                    <p class="text-xs text-blue-200">Citizen</p>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="block px-4 py-2 bg-blue-700 rounded flex items-center">
+                            <i class="fas fa-home mr-3"></i> Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3"></i> Nearby Issues
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded flex items-center">
+                            <i class="fas fa-list mr-3"></i> My Reports
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded flex items-center">
+                            <i class="fas fa-check-circle mr-3"></i> Resolved Issues
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded flex items-center">
+                            <i class="fas fa-cog mr-3"></i> Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html" class="block px-4 py-2 hover:bg-blue-700 rounded flex items-center">
+                            <i class="fas fa-sign-out-alt mr-3"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Authority Section (only visible for authorities) -->
+            <div id="authority-section" class="mt-8 hidden">
+                <h3 class="text-xs uppercase tracking-wider mb-2 text-blue-300">Authority Tools</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded flex items-center">
+                            <i class="fas fa-tasks mr-3"></i> Priority Queue
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-blue-700 rounded flex items-center">
+                            <i class="fas fa-check-double mr-3"></i> Mark as Resolved
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+
+        <div class="flex-1 overflow-auto">
+            <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-30">
+                <h2 class="text-xl font-semibold">Community Issues</h2>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search issues..." class="pl-10 pr-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
+                    </div>
+                    <button id="report-button" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Report Issue
+                    </button>
+                </div>
+            </header>
+            
+            <main class="p-6">
+                <!-- Filters -->
+                <div class="bg-white p-4 rounded-lg shadow mb-6">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                            <select class="border rounded-md px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option>Most Recent</option>
+                                <option>Most Upvoted</option>
+                                <option>Nearest</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                            <select class="border rounded-md px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option>All Categories</option>
+                                <option>Road Issues</option>
+                                <option>Public Safety</option>
+                                <option>Sanitation</option>
+                                <option>Utilities</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                            <select class="border rounded-md px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option>All Statuses</option>
+                                <option>Reported</option>
+                                <option>Acknowledged</option>
+                                <option>In Progress</option>
+                                <option>Resolved</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Total Reports</p>
+                                <p class="text-2xl font-bold">1,248</p>
+                            </div>
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Your Reports</p>
+                                <p class="text-2xl font-bold">14</p>
+                            </div>
+                            <div class="bg-green-100 text-green-600 p-3 rounded-full">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Resolved Issues</p>
+                                <p class="text-2xl font-bold">892</p>
+                            </div>
+                            <div class="bg-purple-100 text-purple-600 p-3 rounded-full">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Report Issue Modal -->
+                <div id="report-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">Report New Issue</h3>
+                            <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <form id="report-form" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Title*</label>
+                                <input type="text" required placeholder="Brief description of the issue" 
+                                       class="w-full px-3 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Description*</label>
+                                <textarea required rows="4" placeholder="Detailed information about the issue"
+                                          class="w-full px-3 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Location*</label>
+                                <input type="text" required placeholder="Address or landmark near the issue"
+                                       class="w-full px-3 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Category*</label>
+                                <select required class="w-full px-3 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select a category</option>
+                                    <option>Road Issues</option>
+                                    <option>Public Safety</option>
+                                    <option>Sanitation</option>
+                                    <option>Utilities</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Upload Photo</label>
+                                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    <div class="space-y-1 text-center">
+                                        <div class="flex text-sm text-gray-600">
+                                            <label class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                                <span>Upload a file</span>
+                                                <input type="file" accept="image/*" class="sr-only">
+                                            </label>
+                                            <p class="pl-1">or drag and drop</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500">PNG, JPG up to 5MB</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-end space-x-3">
+                                <button type="button" id="cancel-report" class="px-4 py-2 border border-gray-300 rounded-md">Cancel</button>
+                                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Submit Report</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Issues List -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="issues-container">
+                    <!-- Issue cards will be dynamically inserted here -->
+                    
+                    <!-- Sample Issue Card 1 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden issue-card">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1565895405227-31cffbe0cf86?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Issue photo" class="w-full h-48 object-cover">
+                            <span class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">Road Issue</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg">Large Pothole on Main Street</h3>
+                                <span class="text-xs text-gray-500">2.3km away</span>
+                            </div>
+                            <p class="text-gray-600 mb-3 text-sm">Deep pothole near the intersection with 5th Avenue, causing damage to vehicles.</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center">
+                                    <div class="w-6 h-6 rounded-full bg-gray-300 mr-2 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Reporter" class="w-full h-full object-cover">
+                                    </div>
+                                    <span>Sarah J.</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-gray-500">2d ago</span>
+                                    <button class="upvote-button flex items-center text-gray-500 hover:text-blue-600" data-upvotes="142">
+                                        <i class="fas fa-chevron-up mr-1"></i>
+                                        <span>142</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Issue Card 2 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden issue-card">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Issue photo" class="w-full h-48 object-cover">
+                            <span class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full">Public Safety</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg">Broken Street Light</h3>
+                                <span class="text-xs text-gray-500">1.1km away</span>
+                            </div>
+                            <p class="text-gray-600 mb-3 text-sm">Street light has been out for 3 weeks on Oak Street between 2nd and 3rd Avenue.</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center">
+                                    <div class="w-6 h-6 rounded-full bg-gray-300 mr-2 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Reporter" class="w-full h-full object-cover">
+                                    </div>
+                                    <span>Michael T.</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-gray-500">5d ago</span>
+                                    <button class="upvote-button flex items-center text-gray-500 hover:text-blue-600" data-upvotes="89">
+                                        <i class="fas fa-chevron-up mr-1"></i>
+                                        <span>89</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Issue Card 3 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden issue-card">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Issue photo" class="w-full h-48 object-cover">
+                            <span class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded-full">Sanitation</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg">Overflowing Trash Bin</h3>
+                                <span class="text-xs text-gray-500">800m away</span>
+                            </div>
+                            <p class="text-gray-600 mb-3 text-sm">Public trash bin at the park has been overflowing for days, attracting pests.</p>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center">
+                                    <div class="w-6 h-6 rounded-full bg-gray-300 mr-2 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Reporter" class="w-full h-full object-cover">
+                                    </div>
+                                    <span>Lisa P.</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-gray-500">1d ago</span>
+                                    <button class="upvote-button flex items-center text-gray-500 hover:text-blue-600" data-upvotes="53">
+                                        <i class="fas fa-chevron-up mr-1"></i>
+                                        <span>53</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-8 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow">
+                        <a href="#" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            Previous
+                        </a>
+                        <a href="#" class="px-3 py-2 border-t border-b border-gray-300 bg-white text-sm font-medium text-blue-600 hover:bg-blue-50">
+                            1
+                        </a>
+                        <a href="#" class="px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            2
+                        </a>
+                        <a href="#" class="px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            3
+                        </a>
+                        <a href="#" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            Next
+                        </a>
+                    </nav>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        
+    </script>
+</body>
+</html>
