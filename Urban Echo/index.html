@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Urban Echo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .fade-in {
+          animation: fade-in 2s ease-in-out;
+        }
+        </style>        
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="animate-bounce text-2xl font-bold">Urban Echo</h1>
+            <div class="flex items-center gap-2">
+                <a href="login.html" class="px-4 py-2 bg-white text-blue-600 rounded hover:bg-gray-100">Login</a>
+                <a href="signup.html" class="px-4 py-2 bg-white text-blue-600 rounded hover:bg-gray-100">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-10 px-4">
+        <section class="text-center py-20">
+            <h2 class="animate-pulse text-4xl font-bold mb-6">Amplify Your Community's Voice</h2>
+            <p class="fade-in text-xl mb-8 max-w-2xl mx-auto">Report local issues, upvote important problems, and help authorities prioritize what matters most in your neighborhood.</p>
+            <a href="signup.html" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">Get Started</a>
+        </section>
+
+        <section class="grid md:grid-cols-3 gap-8 mb-20 text-center">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-xl font-semibold mb-3">Report Issues</h3>
+                <p>Report Issues Effortlessly report problems in your local area. Whether it’s a broken streetlight, a pothole, or any other issue, you can quickly share it with just a few clicks.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-xl font-semibold mb-3">Community Voting</h3>
+                <p>Have your voice heard by upvoting issues that require urgent attention . Your votes ensure that the most pressing concerns get attention, allowing authorities to resolve high-priority matters first.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-xl font-semibold mb-3">Track Progress</h3>
+                <p>See when reported problems get acknowledged and resolved. Get real-time updates on the progress of each issue, ensuring transparency and accountability</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="flex justify-between items-center bg-gray-800 text-white p-6 ">
+        <div>
+            <p>Created with 💙 by Codeus</p>
+        </div>
+        <div>
+            <p>© 2025 Urban Echo. All rights reserved.</p>
+        </div>
+        
+    </footer>
+</body>
+</html>
